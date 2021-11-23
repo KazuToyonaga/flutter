@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 
 import './list_transaction.dart';
 
-class NewTransaction extends StatelessWidget {
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
+class NewTransaction extends StatefulWidget {
   final Function submit;
 
   NewTransaction(this.submit);
+
+  @override
+  State<NewTransaction> createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
 
   void submitData() {
     final titleSubmit = titleController.text;
@@ -17,7 +24,7 @@ class NewTransaction extends StatelessWidget {
       return;
     }
 
-    submit(titleSubmit, amountSubmit);
+    widget.submit(titleSubmit, amountSubmit);
   }
 
   @override
@@ -39,7 +46,10 @@ class NewTransaction extends StatelessWidget {
                   onSubmitted: (_) => submitData(),
                   keyboardType: TextInputType.number,
                 ),
-                ElevatedButton(onPressed: submitData, child: Text('Submit'))
+                ElevatedButton(
+                  onPressed: submitData,
+                  child: Text('Submit'),
+                )
               ],
             )));
   }
